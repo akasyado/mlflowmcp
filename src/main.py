@@ -3,10 +3,13 @@ import mlflow
 from mlflow.tracking import MlflowClient
 import json
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 mcp = FastMCP("MLFLOW")
 
-uri = os.environ["MLFLOW_TRACKING_PASSWORD"]
+uri = os.environ["MLFLOW_TRACKING_URI"]
 
 mlflow.set_tracking_uri(uri)
 
