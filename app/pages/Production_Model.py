@@ -13,19 +13,17 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))
 MODEL_PATH = os.path.join(ROOT_DIR, "models", "bge-small-en-v1.5")
 
-
-
-# 3. Double-check the path exists before trying to load it
+# 2. Check and Download if missing
 if not os.path.exists(MODEL_PATH):
+    st.warning("Model not found locally. Downloading from Hugging Face... (This may take a minute)")
     try:
-        snapshot_download( repo_id="BAAI/bge-small-en-v1.5", local_dir="MODEL_PATH")
-        st.write("Model Downloaded")
+        # FIX 1: Removed the quotes around MODEL_PATH
+        snapshot_download(repo_id="BAAI/bge-small-en-v1.5", local_dir=MODEL_PATH)
+        st.success("Model Downloaded successfully!")
     except Exception as e:
-        st.write(e)
+        # FIX 2: Only stop the app if the download actually crashes
+        st.error(f"🚨 Download failed: {e}")
         st.stop()
-    st.write("")
-    st.error(f"🚨 Cannot find local model at: {MODEL_PATH}")
-    st.stop()
 
 
 
