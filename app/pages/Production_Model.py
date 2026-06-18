@@ -5,6 +5,7 @@ from mlflow import MlflowClient
 import mlflow
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
+from huggingface_hub import snapshot_download
 
 
 # 1. Get the directory of the current script (e.g., /mount/src/mlflowmcp/app/pages/)
@@ -12,8 +13,17 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))
 MODEL_PATH = os.path.join(ROOT_DIR, "models", "bge-small-en-v1.5")
 
+
+
 # 3. Double-check the path exists before trying to load it
 if not os.path.exists(MODEL_PATH):
+    try:
+        snapshot_download( repo_id="BAAI/bge-small-en-v1.5", local_dir="MODEL_PATH")
+        st.write("Model Downloaded")
+    except Exception as e:
+        st.write(e)
+        st.stop()
+    st.write("")
     st.error(f"🚨 Cannot find local model at: {MODEL_PATH}")
     st.stop()
 
