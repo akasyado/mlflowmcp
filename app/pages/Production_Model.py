@@ -4,14 +4,25 @@ import pandas as pd
 from mlflow import MlflowClient
 import mlflow
 from langchain_huggingface import HuggingFaceEmbeddings
+import os
 
+
+# 1. Get the directory of the current script (e.g., /mount/src/mlflowmcp/app/pages/)
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))
+MODEL_PATH = os.path.join(ROOT_DIR, "models", "bge-small-en-v1.5")
+
+# 3. Double-check the path exists before trying to load it
+if not os.path.exists(MODEL_PATH):
+    st.error(f"🚨 Cannot find local model at: {MODEL_PATH}")
+    st.stop()
 
 
 
 if "initialized_production" not in st.session_state:
     st.session_state.uri = mlflow.get_tracking_uri()
     st.session_state.embedding = HuggingFaceEmbeddings(
-                                model_name="models/bge-small-en-v1.5",
+                                model_name=MODEL_PATH,
                                 # model_kwargs={"device": "cuda"},
                                 encode_kwargs={
                                     "normalize_embeddings": True,
