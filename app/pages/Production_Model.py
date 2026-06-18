@@ -11,7 +11,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 if "initialized_production" not in st.session_state:
     st.session_state.uri = mlflow.get_tracking_uri()
     st.session_state.embedding = HuggingFaceEmbeddings(
-                                model_name=r".\models\bge-small-en-v1.5",
+                                model_name="models/bge-small-en-v1.5",
                                 # model_kwargs={"device": "cuda"},
                                 encode_kwargs={
                                     "normalize_embeddings": True,
