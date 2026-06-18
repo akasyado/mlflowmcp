@@ -9,9 +9,9 @@ load_dotenv()
 
 mcp = FastMCP("MLFLOW")
 
-uri = os.environ["MLFLOW_TRACKING_URI"]
+# uri = os.environ["MLFLOW_TRACKING_URI"]
 
-mlflow.set_tracking_uri(uri)
+mlflow.set_tracking_uri("https://dagshub.com/akasyado/mlflow.mlflow")
 
 client = MlflowClient()
 

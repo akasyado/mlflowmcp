@@ -73,3 +73,26 @@ class MLFlowAssistant:
         messages.append(final)
 
         return messages
+    
+
+if __name__ == "__main__":
+    from langchain_core.messages import HumanMessage, AIMessage, ToolMessage, SystemMessage
+    assistant =  MLFlowAssistant()
+    asyncio.run(assistant.initialize())
+    experiment_list = asyncio.run(assistant.get_experiments())
+
+    SYSTEM_PROMPT = (
+                    "You are a helpful assistant with access to MLflow tools.\n"
+                    "LIST OF EXPERIMENT:\n"
+                    f"{experiment_list}\n"
+                    "RULES:\n"
+                    "- NEVER explain what you are about to do\n"
+                    "- NEVER narrate tool usage\n"
+                    "- If you need information, call the appropriate tool silently\n"
+                    "- Summarize the result you get after the tool calls like a normal conversation\n"
+                    "- If you cannot do something with the available tools, say: 'I don't know how to do that'\n"
+                    )
+    msg = [SystemMessage(content=SYSTEM_PROMPT)]
+    msg.append(HumanMessage(content="List out all the experiment names"))
+    msg = asyncio.run(assistant.ask(msg))
+    print(msg)
