@@ -17,7 +17,7 @@ llm = ChatGroq(
     temperature=0
 )
 
-# UV = shutil.which("uv")
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MAIN_FILE = os.path.join(BASE_DIR, "main.py")
@@ -93,6 +93,6 @@ if __name__ == "__main__":
                     "- If you cannot do something with the available tools, say: 'I don't know how to do that'\n"
                     )
     msg = [SystemMessage(content=SYSTEM_PROMPT)]
-    msg.append(HumanMessage(content="List out all the experiment names"))
+    msg.append(HumanMessage(content="What are the artifacts of the run 775a2cba640048b994eb74dbb9830ad4"))
     msg = asyncio.run(assistant.ask(msg))
     print(msg)

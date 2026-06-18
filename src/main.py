@@ -24,7 +24,7 @@ def list_experiment() -> str:
 
 @mcp.tool()
 def runs_in_experiment(experiment_id:list):
-    """This returns the list of runs with parameters, metrics, name and tags given the list ids of experiment
+    """Given the input of list of experiment id this returns the list of runs with parameters, metrics, name and tags for the list ids of experiment
     You can not put experiment names here get the experiment id of the relevant experiment from list_experiments"""
     result = []
     for id in experiment_id:
@@ -96,7 +96,8 @@ def remove_model_from_production(version: str):
 
 @mcp.tool()
 def get_the_artifacts_path(run_id : list):
-    """This gets the stored paths of all the artifacts(confusion matrix) in the given list of run_id"""
+    """It expects a list of run_ids and returns the stored paths of all the 
+    artifacts(confusion matrix) in the given list of run_id"""
 
     if not isinstance(run_id, list):
         run_id = [run_id]
