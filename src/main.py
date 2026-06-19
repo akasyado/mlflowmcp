@@ -2,7 +2,6 @@ from fastmcp import FastMCP
 import mlflow
 from mlflow.tracking import MlflowClient
 import json
-import os
 from dotenv import load_dotenv
 from typing import List
 

@@ -57,7 +57,7 @@ The assistant translates these requests into MLflow API calls and returns the re
 ## Project Structure
 
 ```
-mlflowwithmcp/
+mlflowmcp/
 ├── app/
 │   ├── MLFLOW_Assistant.py
 │   └── pages/
