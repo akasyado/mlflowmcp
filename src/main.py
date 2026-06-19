@@ -4,6 +4,7 @@ from mlflow.tracking import MlflowClient
 import json
 import os
 from dotenv import load_dotenv
+from typing import List
 
 load_dotenv()
 
@@ -23,7 +24,7 @@ def list_experiment() -> str:
     return json.dumps([{"id": exp.experiment_id, "name": exp.name} for exp in experiments])
 
 @mcp.tool()
-def runs_in_experiment(experiment_id:list):
+def runs_in_experiment(experiment_id:List[str]):
     """Given the input of list of experiment id this returns the list of runs with parameters, metrics, name and tags for the list ids of experiment
     You can not put experiment names here get the experiment id of the relevant experiment from list_experiments"""
     result = []
@@ -70,7 +71,7 @@ def models_in_production():
     return models_info
 
 @mcp.tool()
-def push_model_to_production(run_id : list):
+def push_model_to_production(run_id : List[str]):
     """This push model into production use this tool if you a list of run_ids"""
     for id in run_id:
         client.create_model_version(
@@ -95,7 +96,7 @@ def remove_model_from_production(version: str):
 
 
 @mcp.tool()
-def get_the_artifacts_path(run_id : list):
+def get_the_artifacts_path(run_id : List[str]):
     """It expects a list of run_ids and returns the stored paths of all the 
     artifacts(confusion matrix) in the given list of run_id"""
 

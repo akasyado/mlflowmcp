@@ -8,7 +8,7 @@ import os
 from huggingface_hub import snapshot_download
 
 
-# 1. Get the directory of the current script (e.g., /mount/src/mlflowmcp/app/pages/)
+
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(os.path.dirname(CURRENT_DIR))
 MODEL_PATH = os.path.join(ROOT_DIR, "models", "bge-small-en-v1.5")
@@ -17,11 +17,9 @@ MODEL_PATH = os.path.join(ROOT_DIR, "models", "bge-small-en-v1.5")
 if not os.path.exists(MODEL_PATH):
     st.warning("Model not found locally. Downloading from Hugging Face... (This may take a minute)")
     try:
-        # FIX 1: Removed the quotes around MODEL_PATH
         snapshot_download(repo_id="BAAI/bge-small-en-v1.5", local_dir=MODEL_PATH)
         st.success("Model Downloaded successfully!")
     except Exception as e:
-        # FIX 2: Only stop the app if the download actually crashes
         st.error(f"🚨 Download failed: {e}")
         st.stop()
 
@@ -67,8 +65,7 @@ info = {
 
 
 
-# st.json(info)
-# st.json({"Embedding Model" : "BAAI/bge-small-en-v1.5"})
+
 
 
 
@@ -102,10 +99,10 @@ with col2:
         pred = st.session_state.model.predict(df)
 
 
-        # st.info(f"RESULT: {user_text} is {'negative' if pred == 0 else 'positive'} sentence")
+       
         st.info(user_text)
         st.success(f"RESULT :  {'Negative' if pred == 0 else 'Positive'} Sentiment")
-        # st.success(f"{user_text} is {'negative' if pred == 0 else 'positive'} sentence")
+        
 
 
 
